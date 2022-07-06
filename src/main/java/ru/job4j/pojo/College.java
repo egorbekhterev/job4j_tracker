@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class College extends  Student {
     public static void main(String[] args) {
-        College student = new College();
+        Student student = new Student();
         student.setFullName("Bekhterev Egor Vadimovich");
         student.setGroup("EMM-92");
         student.setEntrance(new Date());
