@@ -42,7 +42,6 @@ public class Tracker {
                 rsl[count++] = name;
             }
         }
-        rsl = Arrays.copyOf(rsl, count);
-        return rsl;
+        return Arrays.copyOf(rsl, count);
     }
 }
