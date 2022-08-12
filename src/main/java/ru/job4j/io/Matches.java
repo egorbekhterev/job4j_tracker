@@ -10,15 +10,15 @@ public class Matches {
         int count = 11;
         while (count > 0) {
             String player = turn ? "Первый игрок" : "Второй игрок";
-            System.out.println(player + " введите число от 1 до 3:");
+            System.out.println(player + " введите число от 1 до " + Math.min(3, count));
             int matches = Integer.parseInt(input.nextLine());
-            if (matches >= 1 && matches <= 3 && matches <= count) {
-                count = count - matches;
+            if (matches >= 1 && matches <= Math.min(3, count)) {
+                count -= matches;
                 turn = !turn;
+                System.out.println("На столе осталось " + count + " спичек.");
             } else {
                 System.out.println("Введено недопустимое количество спичек.");
             }
-            System.out.println("На столе осталось " + count + " спичек.");
         }
         if (!turn) {
             System.out.println("Выиграл первый игрок");
