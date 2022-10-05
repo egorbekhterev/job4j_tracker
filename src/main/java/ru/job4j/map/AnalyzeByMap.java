@@ -30,21 +30,21 @@ public class AnalyzeByMap {
         return labelList;
     }
 
-//    public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
-//        Map<String, Integer> map = new LinkedHashMap<>();
-//        List<Label> labelList = new ArrayList<>();
-//        for (Pupil pupil : pupils) {
-//            for (Subject subject : pupil.subjects()) {
-//                    map.put(subject.name(), subject.score());
-//            }
-//        }
-//        for (String key : map.keySet()) {
-//            int value = map.get(key);
-//            Label label = new Label(key, value / pupils.size());
-//            labelList.add(label);
-//        }
-//        return labelList;
-//    }
+    public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
+        Map<String, Integer> map = new LinkedHashMap<>();
+        List<Label> labelList = new ArrayList<>();
+        for (Pupil pupil : pupils) {
+            for (Subject subject : pupil.subjects()) {
+                    map.merge(subject.name(), subject.score(), (v1, v2) -> v1 + v2);
+            }
+        }
+        for (String key : map.keySet()) {
+            int value = map.get(key);
+            Label label = new Label(key, value / pupils.size());
+            labelList.add(label);
+        }
+        return labelList;
+    }
 
     public static Label bestStudent(List<Pupil> pupils) {
         List<Label> labelList = new ArrayList<>();
@@ -61,6 +61,19 @@ public class AnalyzeByMap {
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
-        return null;
+        Map<String, Integer> map = new LinkedHashMap<>();
+        List<Label> labelList = new ArrayList<>();
+        for (Pupil pupil : pupils) {
+            for (Subject subject : pupil.subjects()) {
+                map.merge(subject.name(), subject.score(), (v1, v2) -> v1 + v2);
+            }
+        }
+            for (String key : map.keySet()) {
+                int value = map.get(key);
+                Label label = new Label(key, value);
+                labelList.add(label);
+                labelList.sort(Comparator.naturalOrder());
+            }
+        return labelList.get(pupils.size() - 1);
     }
 }
