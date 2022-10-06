@@ -15,7 +15,7 @@ public class User implements Comparable<User> {
     public String getName() {
         return name;
     }
-    
+
     @Override
     public int compareTo(User another) {
         int compare = name.compareTo(another.name);
