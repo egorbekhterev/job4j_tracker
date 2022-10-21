@@ -10,8 +10,6 @@ public class ListToMap {
 
     public static Map<String, Student> convert(List<Student> list) {
         return list.stream()
-                .sorted(Comparator.comparing(Student::getSurname))
-                .distinct()
                 .collect(Collectors.toMap(
                         Student::getSurname,
                         student -> student,
