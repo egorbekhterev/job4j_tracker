@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +10,7 @@ public class Item {
     private String name;
     private LocalDateTime created = LocalDateTime.now();
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
+    private Timestamp tsFromLDT = Timestamp.valueOf(LocalDateTime.now());
 
     public Item() {
     }
@@ -22,8 +24,18 @@ public class Item {
         this.name = name;
     }
 
+    public Item(int id, String name, Timestamp tsFromLDT) {
+        this.id = id;
+        this.name = name;
+        this.tsFromLDT = tsFromLDT;
+    }
+
     public LocalDateTime getCreated() {
         return created;
+    }
+
+    public Timestamp getTsFromLDT() {
+        return tsFromLDT;
     }
 
     public int getId() {
