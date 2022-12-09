@@ -53,26 +53,23 @@ public class SqlTrackerTest {
     @Test
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
+        Item item = tracker.add(new Item("item"));
         assertThat(tracker.findById(item.getId())).isEqualTo(item);
     }
 
     @Test
     public void whenReplaceItemAndFindByGeneratedIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item");
-        tracker.add(item1);
+        Item item1 = tracker.add(new Item("item"));
         Item item2 = new Item("thing");
         tracker.replace(item1.getId(), item2);
-        assertThat(tracker.findById(item1.getId())).isEqualTo(item2);
+        assertThat(tracker.findById(item1.getId()).getName()).isEqualTo(item2.getName());
     }
 
     @Test
     public void whenDeleteItemAndFindByGeneratedMustBeNull() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
+        Item item = tracker.add(new Item("item"));
         tracker.delete(item.getId());
         assertThat(tracker.findById(item.getId())).isNull();
     }
@@ -80,14 +77,14 @@ public class SqlTrackerTest {
     @Test
     public void whenFindAll() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
-        Item item2 = new Item("item2");
-        Item item3 = new Item("item3");
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        Item item3 = tracker.add(new Item("item3"));
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
         List<Item> items = List.of(item1, item2, item3);
-        assertThat(tracker.findAll()).isEqualTo(items);
+        assertThat(tracker.findAll()).containsAll(items);
     }
 
     @Test
@@ -96,6 +93,6 @@ public class SqlTrackerTest {
         Item item = new Item("item");
         tracker.add(item);
         List<Item> items = List.of(item);
-        assertThat(tracker.findByName(item.getName())).isEqualTo(items);
+        assertThat(tracker.findByName(item.getName())).containsAll(items);
     }
 }
