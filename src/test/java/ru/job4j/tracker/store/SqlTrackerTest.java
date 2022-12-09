@@ -80,9 +80,6 @@ public class SqlTrackerTest {
         Item item1 = tracker.add(new Item("item1"));
         Item item2 = tracker.add(new Item("item2"));
         Item item3 = tracker.add(new Item("item3"));
-        tracker.add(item1);
-        tracker.add(item2);
-        tracker.add(item3);
         List<Item> items = List.of(item1, item2, item3);
         assertThat(tracker.findAll()).containsAll(items);
     }
@@ -90,8 +87,7 @@ public class SqlTrackerTest {
     @Test
     public void whenFindByName() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
+        Item item = tracker.add(new Item("item"));
         List<Item> items = List.of(item);
         assertThat(tracker.findByName(item.getName())).containsAll(items);
     }
