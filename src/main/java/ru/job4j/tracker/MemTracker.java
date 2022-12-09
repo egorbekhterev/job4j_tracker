@@ -64,6 +64,5 @@ public class MemTracker implements Store {
 
     @Override
     public void close() {
-
     }
 }
