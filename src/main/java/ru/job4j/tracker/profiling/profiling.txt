@@ -1,0 +1,24 @@
+VM options: -Xlog:gc* -XX:+UseG1GC;
+#jmap
+В память добавлено 111111 заявок:
+![](jmap_after_adding_requests.png)
+Из памяти удалены все заявки:
+![](jmap_after_deleting_all_requests.png)
+После добавления заявок наблюдается заполнение HeapCharBuffer;
+Для создания объектов Item в большом количестве зайдествуются классы String и StringBuilder,
+LocalDateTime и DateTimePrintContext;
+
+#jstat
+![](jstat_while_adding_requests.png)
+По мере добавления большого объема заявок наблюдается использование объектов из Survivor Space 1,
+увеличивается вместимость Eden, при этом увеличивается и использование объектов из Eden. Аналогичная ситуация происходит
+для Old Space, Metaspace, Compressed class . Суммарное время сборки мусора = 8.614 мс, для Young Generation = 6 мс.
+Minor GC произведено 83 раза, Major GC - 8 раз. После Major GC наблюдается резкое падение Eden capacity и Eden utilization до 0.
+Также упала вместимость Survivor Space 1. Перед первым вызовами Minor GC наоборот наблюдается равномерное распределение
+памяти по всем ее участкам (Нагружены все, кроме S0).
+
+VM options: -Xlog:gc* -XX:+UseG1GC;
+#jconsole
+![](jConsole_application.png)
+При добавлении большого числа заявок наблюдается почти полное заполенение памяти Heap, резкое увеличение нагрузки на процессор.
+Количество используемых потоков не изменяется.
