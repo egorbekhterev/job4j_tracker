@@ -22,7 +22,7 @@ public class EditAction implements  UserAction {
         if (tracker.replace(id, item)) {
             out.println("Заявка изменена успешно.");
         } else {
-            out.println("Ошибка замены заявки.");
+            out.println(String.format("Заявка с id = %s не найдена.", id));
         }
         return true;
     }
