@@ -5,21 +5,23 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Entity
+@Table(name = "items")
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
+@Getter
 public class Item {
-    @Getter
     @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @EqualsAndHashCode.Include
-    @Getter
     @Setter
     private String name;
-    @Getter
     private LocalDateTime created = LocalDateTime.now();
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
 
