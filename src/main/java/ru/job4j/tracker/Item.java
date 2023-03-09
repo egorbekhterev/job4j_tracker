@@ -14,13 +14,13 @@ import java.time.format.DateTimeFormatter;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
+@Setter
 public class Item {
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
     @EqualsAndHashCode.Include
-    @Setter
     private String name;
     private LocalDateTime created = LocalDateTime.now();
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
